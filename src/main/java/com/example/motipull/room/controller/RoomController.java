@@ -15,10 +15,12 @@ public class RoomController {
     @Autowired
     RoomService roomService;
 
-
     @PostMapping("/room/create")
     @ResponseBody
     public ResponseEntity createRoom(@RequestBody RoomDto dto) {
+        System.out.println(dto.getRoomId());
+        System.out.println(dto.getRoomName());
+        System.out.println(dto.getRoomAdmin());
         roomService.createRoom(dto);
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }

@@ -1,10 +1,13 @@
 package com.example.motipull.room.service;
 
+import com.example.motipull.member.entity.MemberEntity;
+import com.example.motipull.member.service.MemberService;
 import com.example.motipull.room.dto.RoomDto;
 import com.example.motipull.room.entity.Room;
 import com.example.motipull.room.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +22,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RoomService {
 
+    @Autowired
+    MemberService memberService;
+
     private final RoomRepository roomRepository;
 
     public void createRoom(RoomDto dto) {
-        Room room = Room.toEntity(dto);
-        if (roomRepository.findById(dto.getRoomID()).isEmpty()) {
+        Room room = Room.toEntity(dto, MemberEntity.toEntity(memberService.getMemberById(dto.getRoomAdmin().intValue())));
+        if (roomRepository.findById(dto.getRoomId()).isEmpty()) {
             log.info("[RoomService] new room created! | name : {}", dto.getRoomName());
         }
         roomRepository.save(room);

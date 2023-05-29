@@ -7,6 +7,7 @@ import com.example.motipull.roomMember.dto.RoomMemberDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
@@ -29,6 +30,10 @@ public class RoomMemberEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;
+
+    @Column(name = "frame_point")
+    @ColumnDefault("0") //default 0
+    private int framePoint;
 
     public static RoomMemberEntity toEntity(Room room, MemberEntity member) {
         RoomMemberEntity roomMemberEntity = new RoomMemberEntity();

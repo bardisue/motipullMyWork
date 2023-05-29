@@ -7,10 +7,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class RoomDto {
-    private int roomID;
+    private Integer roomId;
     private String roomName;
-    private int roomAdmin;
+    private Integer roomAdmin;
     public static RoomDto toDto(Room room){
-        return new RoomDto(room.getRoomId(), room.getRoomName(), room.getRoomAdmin());
+        return new RoomDto(room.getRoomId(), room.getRoomName(), room.getRoomAdmin().getMemberID());
     }
 }
