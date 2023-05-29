@@ -3,6 +3,7 @@ package com.example.motipull.kanbanRow.service;
 import com.example.motipull.kanbanRow.dto.KanbanRowDto;
 import com.example.motipull.kanbanRow.entity.KanbanRowEntity;
 import com.example.motipull.kanbanRow.repository.KanbanRepository;
+import com.example.motipull.member.dto.MemberDto;
 import com.example.motipull.member.entity.MemberEntity;
 import com.example.motipull.member.repository.MemberRepository;
 import com.example.motipull.member.service.MemberService;
@@ -32,5 +33,10 @@ public class KanbanRowService {
             log.info("[KanbanRowService] new KanbanRow created! | name : {}", dto.getRowName());
         }
         kanbanRepository.save(kanbanRow);
+    }
+
+    public KanbanRowEntity getKanbanRowById(Integer kanbanRowId){
+        KanbanRowEntity kanbanRow = kanbanRepository.findById(kanbanRowId).get();
+        return kanbanRow;
     }
 }
