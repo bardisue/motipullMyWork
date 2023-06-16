@@ -1,11 +1,8 @@
 package com.example.motipull.card.controller;
 
 import com.example.motipull.card.dto.CardDto;
-import com.example.motipull.card.dto.CardRowChangeDto;
+import com.example.motipull.card.dto.CardColChangeDto;
 import com.example.motipull.card.service.CardService;
-import com.example.motipull.member.dto.MemberDto;
-import com.example.motipull.member.dto.MemberIdDto;
-import com.example.motipull.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +24,30 @@ public class CardController {
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
 
-    @PostMapping("/card/rowChange")
+    @GetMapping("/card/searchAll")
     @ResponseBody
-    public ResponseEntity createRoom(@RequestBody CardRowChangeDto dto) {
+    public ResponseEntity<List<CardDto>> getAllCard(){
+        return ResponseEntity.ok(cardService.getAllCard());
+    }
+
+    @PostMapping("/card/colChange")
+    @ResponseBody
+    public ResponseEntity changeCard(@RequestBody CardColChangeDto dto) {
         cardService.changeCard(dto);
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
 
+    @PostMapping("/card/cheerUp")
+    @ResponseBody
+    public ResponseEntity cheerUp(@RequestBody CardColChangeDto dto) {
+        cardService.cheerUp(dto);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
+    }
+
+    @PostMapping("/card/dueDate")
+    @ResponseBody
+    public ResponseEntity changeDueDate(@RequestBody CardColChangeDto dto) {
+        cardService.changeDueDate(dto);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
+    }
 }

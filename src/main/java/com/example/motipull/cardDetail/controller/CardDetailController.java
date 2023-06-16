@@ -20,11 +20,12 @@ public class CardDetailController {
         this.cardDetailService = cardDetailService;
     }
 
-
+/***
     @PostMapping("/cardDetail/create")
     @ResponseBody
     public ResponseEntity createCardDetail(@RequestBody CardDetailDto dto) {
         cardDetailService.createCardDetail(dto);
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
+    ***/
 }

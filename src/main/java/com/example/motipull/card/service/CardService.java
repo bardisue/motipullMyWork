@@ -1,16 +1,10 @@
 package com.example.motipull.card.service;
 
+import com.example.motipull.card.dto.CardColChangeDto;
 import com.example.motipull.card.dto.CardDto;
-import com.example.motipull.card.dto.CardRowChangeDto;
 import com.example.motipull.card.entitiy.CardEntity;
 import com.example.motipull.card.repository.CardRepository;
 import com.example.motipull.kanbanRow.service.KanbanRowService;
-import com.example.motipull.member.dto.MemberDto;
-import com.example.motipull.member.entity.MemberEntity;
-import com.example.motipull.member.service.MemberService;
-import com.example.motipull.room.dto.RoomDto;
-import com.example.motipull.room.entity.Room;
-import com.example.motipull.room.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,22 +25,42 @@ public class CardService {
 
 
     public void createCard(CardDto dto) {
-        CardEntity card = CardEntity.toEntity(dto, kanbanRowService.getKanbanRowById(dto.getRowId()));
-        if (cardRepository.findById(dto.getCardId()).isEmpty()) {
-            log.info("[CardService] new member created! | name : {}", dto.getCardName());
+        CardEntity card = CardEntity.toEntity(dto);
+        /***
+        if (cardRepository.findById(card.getCardID()).isEmpty()) {
+            log.info("[CardService] new member created! | name : {}", card.getCardName());
         }
+         ***/
         cardRepository.save(card);
     }
 
-    public void changeCard(CardRowChangeDto dto) {
+    public void changeCard(CardColChangeDto dto) {
         CardEntity card = cardRepository.findById(dto.getCardId()).get();
-        System.out.println(dto.getRowId());
-        card.setRow(kanbanRowService.getKanbanRowById(dto.getRowId()));
+        card.setColId(card.getColId()+1);
+        cardRepository.save(card);
+    }
+
+    public void cheerUp(CardColChangeDto dto) {
+        CardEntity card = cardRepository.findById(dto.getCardId()).get();
+        card.setCheerUp(card.getCheerUp() + 1);
         cardRepository.save(card);
     }
 
     public CardEntity getCardById(Integer id){
         CardEntity card = cardRepository.findById(id).get();
         return card;
+    }
+
+    public List<CardDto> getAllCard() {
+        List<CardEntity> list = cardRepository.findAll();
+
+        List<CardDto> dtos = list.stream().map(x -> CardDto.toDto(x)).collect(Collectors.toList());
+        return dtos;
+    }
+
+    public void changeDueDate(CardColChangeDto dto) {
+        CardEntity card = cardRepository.findById(dto.getCardId()).get();
+        card.setDueDate(dto.getDueDate());
+        cardRepository.save(card);
     }
 }

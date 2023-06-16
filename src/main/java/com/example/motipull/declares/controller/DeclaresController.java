@@ -18,11 +18,11 @@ public class DeclaresController {
         this.declaresService = declareService;
     }
 
-
+/***
     @PostMapping("/declare/create")
     @ResponseBody
     public ResponseEntity createCardDetail(@RequestBody DeclaresDto dto) {
         declaresService.createDeclare(dto);
         return ResponseEntity.status(HttpStatus.OK).body(dto);
-    }
+    }***/
 }

@@ -27,7 +27,7 @@ public class CardDetailService {
     public CardDetailService(CardDetailRepository cardDetailRepository){
         this.cardDetailRepository = cardDetailRepository;
     }
-
+/***
     public void createCardDetail(CardDetailDto dto) {
         CardDetailEntity cardDetail = CardDetailEntity.toEntity(dto, cardService.getCardById(dto.getCardId()));
         if (cardDetailRepository.findById(dto.getId()).isEmpty()) {
@@ -35,6 +35,6 @@ public class CardDetailService {
         }
         cardDetailRepository.save(cardDetail);
     }
-
+***/
 
 }

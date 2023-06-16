@@ -25,20 +25,24 @@ public class CardAdminEntity {
     @JoinColumn(name = "card_id")
     private CardEntity card;
 
+    /***
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity member;
+    ***/
+
+    @Column
+    private String admin;
 
 
-    public static CardAdminEntity toEntity(Integer id, CardEntity card, MemberEntity member) {
-        CardAdminEntity cardAdminEntity = new CardAdminEntity(id, card, member);
+    public static CardAdminEntity toEntity(CardEntity card, String admin) {
+        CardAdminEntity cardAdminEntity = new CardAdminEntity(card, admin);
         return cardAdminEntity;
     }
 
-    public CardAdminEntity(int id, CardEntity card, MemberEntity member) {
-        this.id = id;
+    public CardAdminEntity(CardEntity card, String admin) {
         this.card = card;
-        this.member = member;
+        this.admin = admin;
     }
 
 }

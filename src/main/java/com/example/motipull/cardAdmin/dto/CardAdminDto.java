@@ -1,17 +1,16 @@
 package com.example.motipull.cardAdmin.dto;
 
+import com.example.motipull.cardAdmin.entity.CardAdminEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
 public class CardAdminDto {
-    private Integer id;
     private Integer cardId;
-    private Integer memberId;
-    /***
-     public static RoomMemberDto toDto(RoomMemberEntity roomMember){
-     return new RoomMemberDto(roomMember.getId(), .toDto(roomMember.getMember()), RoomDto.toDto(roomMember.getRoom()));
+    private String admin;
+
+     public static CardAdminDto toDto(CardAdminEntity cardAdmin){
+        return new CardAdminDto(cardAdmin.getCard().getId(), cardAdmin.getAdmin());
      }
-     ***/
 }

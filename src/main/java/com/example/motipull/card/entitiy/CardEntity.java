@@ -7,11 +7,13 @@ import com.example.motipull.member.entity.MemberEntity;
 import com.example.motipull.room.dto.RoomDto;
 import com.example.motipull.room.entity.Room;
 import com.example.motipull.rowPrimary.entity.RowPrimaryEntity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,34 +25,33 @@ import java.util.List;
 public class CardEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer cardID;
-
+    private Integer id;
+    @Column
+    private Integer colId;
     @Column
     private String cardName;
-
     @Column
-    private String cardExplanation;
-    @Column
-    private String cardDomain;
+    private String cardDescription;
     @Convert(converter = BooleanToYNConverter.class)
     @Column
-    private boolean cardDetail;
+    private boolean isDetailWorks;
+    @Column
+    private Integer cheerUp;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @Column
+    private LocalDate dueDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "row_id")
-    private KanbanRowEntity row;
-
-    public CardEntity(Integer cardID, String cardName, String cardExplanation, String cardDomain, boolean cardDetail, KanbanRowEntity row) {
-        this.cardID = cardID;
+    public CardEntity(Integer id, Integer colId, String cardName, String cardDescription, boolean isDetailWorks, Integer cheerUp, LocalDate dueDate) {
+        this.id = id;
+        this.colId = colId;
         this.cardName = cardName;
-        this.cardExplanation = cardExplanation;
-        this.cardDomain = cardDomain;
-        this.cardDetail = cardDetail;
-        this.row = row;
+        this.cardDescription = cardDescription;
+        this.isDetailWorks = isDetailWorks;
+        this.cheerUp = cheerUp;
+        this.dueDate = dueDate;
     }
 
-    public static CardEntity toEntity(CardDto dto, KanbanRowEntity row) {
-        return new CardEntity(dto.getCardId(), dto.getCardName(), dto.getCardExplanation(), dto.getCardDomain(), dto.getCardDetail(), row);
+    public static CardEntity toEntity(CardDto dto) {
+        return new CardEntity(dto.getId(), dto.getColId(), dto.getName(), dto.getDescription(), dto.getIsDetailWorks(), dto.getCheerUp(), dto.getDueDate());
     }
 }

@@ -23,7 +23,7 @@ public class DeclaresService {
     CardService cardService;
     @Autowired
     MemberService memberService;
-
+/***
     public void createDeclare(DeclaresDto dto) {
         DeclaresEntity declare = DeclaresEntity.toEntity(dto, MemberEntity.toEntity(memberService.getMemberById(dto.getMemberId())), cardService.getCardById(dto.getCardId()));
         if (declareRepository.findById(dto.getId()).isEmpty()) {
@@ -31,6 +31,6 @@ public class DeclaresService {
         }
         declareRepository.save(declare);
     }
-
+***/
 
 }
